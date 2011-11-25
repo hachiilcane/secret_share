@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Path:</b>
+  <%= @directory.path %>
+</p>
+
+<p>
+  <b>Modified at:</b>
+  <%= @directory.modified_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_directory_path(@directory) %> |
+<%= link_to 'Back', directories_path %>
