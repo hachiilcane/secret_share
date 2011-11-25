@@ -1,4 +1,5 @@
 SweetAlbum::Application.routes.draw do
+  root :to => 'directories#index'
   resources :photos
 
   resources :directories
