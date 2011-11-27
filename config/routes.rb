@@ -1,4 +1,4 @@
-SweetAlbum::Application.routes.draw do
+SecretShare::Application.routes.draw do
   root :to => 'directories#index'
   resources :photos
 

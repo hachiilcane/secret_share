@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-SweetAlbum::Application.load_tasks
+SecretShare::Application.load_tasks
