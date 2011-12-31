@@ -49,15 +49,25 @@ class DirectoriesController < ApplicationController
     sub_dir_names.uniq!
 
     sub_dir_names.each do |path|
-      dir = Directory.where(:path => path)
-      if dir.size == 0
-        modified_time = File.mtime(root_dir + path)
-        directory = Directory.new(:path => path, :modified_at => modified_time)
-        if directory.save
+      modified_time = File.mtime(root_dir + path)
+      directory = Directory.where(:path => path).first
 
-        else
+      # has not created target model yet
+      if !directory
+        directory = Directory.new(:path => path, :modified_at => modified_time)
+        if !directory.save
           #TODO error code
         end
+        create_photos_in_sub_directory(root_dir + path, directory.id)
+      end
+
+      # update
+      if modified_time != directory.modified_at
+        # destroy all once!
+        target_dir_photos = Photo.where(:directory_id => directory.id)
+        target_dir_photos.destroy_all
+
+        create_photos_in_sub_directory(root_dir + path, directory.id)
       end
     end
 
@@ -108,6 +118,17 @@ class DirectoriesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to directories_url }
       format.json { head :ok }
+    end
+  end
+
+  private
+
+  def create_photos_in_sub_directory(full_path, directory_id)
+    Dir::glob(full_path + "/*.{jpg,JPG}").each do |f|
+      photo = Photo.new(:file_name => File.basename(f), :directory_id => directory_id)
+      if !photo.save
+        #TODO error code
+      end
     end
   end
 end
