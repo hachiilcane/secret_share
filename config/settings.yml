@@ -1,0 +1,8 @@
+development:
+  root_directory: "/Users/Shared/album/"
+
+test:
+  root_directory: "/Users/Shared/album/"
+
+production:
+  root_directory: "/Users/Shared/album/"
