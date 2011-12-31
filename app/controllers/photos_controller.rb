@@ -2,7 +2,12 @@ class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.json
   def index
-    @photos = Photo.all
+    if params[:directory_id]
+      @directory = Directory.find(params[:directory_id])
+      @photos = @directory.photos.all
+    else
+      @photos = Photo.all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
