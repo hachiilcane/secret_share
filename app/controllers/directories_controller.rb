@@ -37,6 +37,36 @@ class DirectoriesController < ApplicationController
     @directory = Directory.find(params[:id])
   end
 
+  # POST /directories/scan
+  def scan
+    root_dir = AppConfig[:root_directory]
+    root_dir += "/" unless /\/$/ =~ root_dir
+
+    sub_dir_names = []
+    Dir::glob(root_dir + "**/*.{jpg,JPG}").each do |f|
+      sub_dir_names << File.dirname(f).sub(root_dir, "")
+    end
+    sub_dir_names.uniq!
+
+    sub_dir_names.each do |path|
+      dir = Directory.where(:path => path)
+      if dir.size == 0
+        modified_time = File.mtime(root_dir + path)
+        directory = Directory.new(:path => path, :modified_at => modified_time)
+        if directory.save
+
+        else
+          #TODO error code
+        end
+      end
+    end
+
+    respond_to do |format|
+      format.html { redirect_to directories_url }
+      format.json { head :ok }
+    end
+  end
+
   # POST /directories
   # POST /directories.json
   def create

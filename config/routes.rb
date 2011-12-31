@@ -2,7 +2,9 @@ SecretShare::Application.routes.draw do
   root :to => 'directories#index'
   resources :photos
 
-  resources :directories
+  resources :directories do
+    post 'scan', :on => :collection
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
