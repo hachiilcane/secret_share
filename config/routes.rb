@@ -7,6 +7,7 @@ SecretShare::Application.routes.draw do
   resources :directories do
     post 'scan', :on => :collection
     resources :photos do
+      get 'inline_thumbnail', :on => :member
       get 'inline_image', :on => :member
     end
   end

@@ -13,6 +13,7 @@
   <tr>
     <td><%= photo.file_name %></td>
     <td><%= photo.directory_id %></td>
+    <td><%= image_tag url_for(:action => 'inline_thumbnail', :id => photo.id) %>
     <td><%= link_to 'Show', photo %></td>
     <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
     <td><%= link_to 'Destroy', photo, confirm: 'Are you sure?', method: :delete %></td>

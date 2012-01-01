@@ -86,6 +86,16 @@ class PhotosController < ApplicationController
     end
   end
 
+  def inline_thumbnail
+    @photo = Photo.find(params[:id])
+
+    img = Magick::ImageList.new(@photo.file_name)
+    scale = 0.04
+    out_img = img.thumbnail(scale)
+
+    send_data(out_img.to_blob, :type => 'image/jpeg', :disposition => 'inline')
+  end
+
   def inline_image
     @photo = Photo.find(params[:id])
 
