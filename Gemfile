@@ -7,6 +7,8 @@ gem 'rails', '3.1.1'
 
 gem 'sqlite3'
 
+gem 'rmagick'
+
 gem "rspec-rails", ">=2.6.0", :group => [:development, :test]
 
 # Gems used only for assets and not required
