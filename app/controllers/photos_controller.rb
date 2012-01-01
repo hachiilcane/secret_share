@@ -91,7 +91,7 @@ class PhotosController < ApplicationController
 
     img = Magick::ImageList.new(@photo.file_name)
     scale = 0.04
-    out_img = img.thumbnail(scale)
+    out_img = img.auto_orient.thumbnail(scale)
 
     send_data(out_img.to_blob, :type => 'image/jpeg', :disposition => 'inline')
   end
@@ -101,7 +101,7 @@ class PhotosController < ApplicationController
 
     img = Magick::ImageList.new(@photo.file_name)
     scale = img.columns > 1024.0 ? 1024.0 / img.columns : 1.0
-    out_img = img.resize(scale)
+    out_img = img.auto_orient.resize(scale)
 
     send_data(out_img.to_blob, :type => 'image/jpeg', :disposition => 'inline')
   end
