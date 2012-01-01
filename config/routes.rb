@@ -1,10 +1,14 @@
 SecretShare::Application.routes.draw do
   root :to => 'directories#index'
-  resources :photos
+  resources :photos do
+    get 'inline_image', :on => :member
+  end
 
   resources :directories do
     post 'scan', :on => :collection
-    resources :photos
+    resources :photos do
+      get 'inline_image', :on => :member
+    end
   end
 
   # The priority is based upon order of creation:
