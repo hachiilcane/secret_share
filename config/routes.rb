@@ -1,14 +1,20 @@
 SecretShare::Application.routes.draw do
   root :to => 'directories#index'
   resources :photos do
-    get 'inline_image', :on => :member
+    member do
+      get 'inline_image'
+      get 'original_image'
+    end
   end
 
   resources :directories do
     post 'scan', :on => :collection
     resources :photos do
-      get 'inline_thumbnail', :on => :member
-      get 'inline_image', :on => :member
+      member do
+        get 'inline_thumbnail'
+        get 'inline_image'
+        get 'original_image'
+      end
     end
   end
 

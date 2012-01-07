@@ -105,4 +105,9 @@ class PhotosController < ApplicationController
 
     send_data(out_img.to_blob, :type => 'image/jpeg', :disposition => 'inline')
   end
+
+  def original_image
+    @photo = Photo.find(params[:id])
+    send_file(@photo.file_name, :type => 'image/jpeg', :disposition => 'inline')
+  end
 end
