@@ -4,6 +4,8 @@
   <tr>
     <th>File name</th>
     <th>Directory</th>
+    <th>Thumbnail</th>
+    <th>Date</th>
     <th></th>
     <th></th>
     <th></th>
@@ -14,6 +16,7 @@
     <td><%= photo.full_name %></td>
     <td><%= photo.directory_id %></td>
     <td><%= image_tag url_for(:action => 'inline_thumbnail', :id => photo.id) %>
+    <td><%= photo.date_time_original %></td>
     <td><%= link_to 'Show', photo %></td>
     <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
     <td><%= link_to 'Destroy', photo, confirm: 'Are you sure?', method: :delete %></td>
