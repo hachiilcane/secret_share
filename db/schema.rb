@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111125153058) do
+ActiveRecord::Schema.define(:version => 20120111150954) do
 
   create_table "directories", :force => true do |t|
     t.string   "path"
@@ -25,6 +25,10 @@ ActiveRecord::Schema.define(:version => 20111125153058) do
     t.integer  "directory_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "modified_at"
+    t.datetime "date_time_original"
+    t.binary   "thumbnail_medium"
+    t.binary   "thumbnail_small"
   end
 
 end
