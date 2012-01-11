@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "photos/show.html.erb" do
   before(:each) do
     @photo = assign(:photo, stub_model(Photo,
-      :file_name => "File Name",
+      :full_name => "File Name",
       :directory_id => 1
     ))
   end

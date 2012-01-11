@@ -125,7 +125,7 @@ class DirectoriesController < ApplicationController
 
   def create_photos_in_sub_directory(full_path, directory_id)
     Dir::glob(full_path + "/*.{jpg,JPG}").each do |f|
-      photo = Photo.new(:file_name => f, :directory_id => directory_id)
+      photo = Photo.new(:full_name => f, :directory_id => directory_id)
       if !photo.save
         #TODO error code
       end

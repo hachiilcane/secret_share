@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(:version => 20111125153058) do
   end
 
   create_table "photos", :force => true do |t|
-    t.string   "file_name"
+    t.string   "full_name"
     t.integer  "directory_id"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -89,7 +89,7 @@ class PhotosController < ApplicationController
   def inline_thumbnail
     @photo = Photo.find(params[:id])
 
-    img = Magick::ImageList.new(@photo.file_name)
+    img = Magick::ImageList.new(@photo.full_name)
     scale = 0.04
     out_img = img.auto_orient.thumbnail(scale)
 
@@ -99,7 +99,7 @@ class PhotosController < ApplicationController
   def inline_image
     @photo = Photo.find(params[:id])
 
-    img = Magick::ImageList.new(@photo.file_name)
+    img = Magick::ImageList.new(@photo.full_name)
     scale = img.columns > 1024.0 ? 1024.0 / img.columns : 1.0
     out_img = img.auto_orient.resize(scale)
 
@@ -108,6 +108,6 @@ class PhotosController < ApplicationController
 
   def original_image
     @photo = Photo.find(params[:id])
-    send_file(@photo.file_name, :type => 'image/jpeg', :disposition => 'inline')
+    send_file(@photo.full_name, :type => 'image/jpeg', :disposition => 'inline')
   end
 end

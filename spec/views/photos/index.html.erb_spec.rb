@@ -4,11 +4,11 @@ describe "photos/index.html.erb" do
   before(:each) do
     assign(:photos, [
       stub_model(Photo,
-        :file_name => "File Name",
+        :full_name => "File Name",
         :directory_id => 1
       ),
       stub_model(Photo,
-        :file_name => "File Name",
+        :full_name => "File Name",
         :directory_id => 1
       )
     ])
