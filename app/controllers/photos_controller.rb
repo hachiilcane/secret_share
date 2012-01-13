@@ -89,11 +89,9 @@ class PhotosController < ApplicationController
   def inline_thumbnail
     @photo = Photo.find(params[:id])
 
-    img = Magick::ImageList.new(@photo.full_name)
-    scale = 0.04
-    out_img = img.auto_orient.thumbnail(scale)
-
-    send_data(out_img.to_blob, :type => 'image/jpeg', :disposition => 'inline')
+    img = @photo.thumbnail_medium ? @photo.thumbnail_medium : @photo.create_medium_thumbnail
+    send_data(img, :type => 'image/jpeg', :disposition => 'inline')
+    @photo.save if @photo.changed?
   end
 
   def inline_image
