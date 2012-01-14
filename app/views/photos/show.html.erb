@@ -2,12 +2,12 @@
 
 <p>
   <b>File name:</b>
-  <%= @photo.full_name %>
+  <%= File.basename(@photo.full_name) %>
 </p>
 
 <p>
   <b>Directory:</b>
-  <%= @photo.directory_id %>
+  <%= @photo.directory.path %>
 </p>
 
 <p>

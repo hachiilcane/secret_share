@@ -4,8 +4,10 @@ class PhotosController < ApplicationController
   def index
     if params[:directory_id]
       @directory = Directory.find(params[:directory_id])
+      @list_name = @directory.path
       @photos = @directory.photos.all
     else
+      @list_name = ""
       @photos = Photo.all
     end
 

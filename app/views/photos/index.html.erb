@@ -1,24 +1,20 @@
-<h1>Listing photos</h1>
+<h1>Listing photos: <%= @list_name %></h1>
 
 <table>
   <tr>
     <th>File name</th>
-    <th>Directory</th>
     <th>Thumbnail</th>
     <th>Date</th>
-    <th></th>
     <th></th>
     <th></th>
   </tr>
 
 <% @photos.each do |photo| %>
   <tr>
-    <td><%= photo.full_name %></td>
-    <td><%= photo.directory_id %></td>
-    <td><%= image_tag url_for(:action => 'inline_thumbnail', :id => photo.id) %>
-    <td><%= photo.date_time_original %></td>
+    <td><%= File.basename(photo.full_name) %></td>
+    <td><%= link_to image_tag(url_for(:action => 'inline_thumbnail', :id => photo.id)), photo %></td>
+    <td><%= photo.date_time_original.getlocal %></td>
     <td><%= link_to 'Show', photo %></td>
-    <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
     <td><%= link_to 'Destroy', photo, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>

@@ -10,16 +10,13 @@
     <th>Modified at</th>
     <th></th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @directories.each do |directory| %>
   <tr>
     <td><%= directory.path %></td>
-    <td><%= directory.modified_at %></td>
-    <td><%= link_to 'Photos', [ directory, :photos ] %></td>
-    <td><%= link_to 'Show', directory %></td>
-    <td><%= link_to 'Edit', edit_directory_path(directory) %></td>
+    <td><%= directory.modified_at.getlocal %></td>
+    <td><%= link_to 'Show', [ directory, :photos ] %></td>
     <td><%= link_to 'Destroy', directory, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>

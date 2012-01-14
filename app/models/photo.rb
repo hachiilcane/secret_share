@@ -1,4 +1,5 @@
 class Photo < ActiveRecord::Base
+  belongs_to :directory
 
   def read_original_time
     self.date_time_original = get_original_time_by_exif(self.full_name)
