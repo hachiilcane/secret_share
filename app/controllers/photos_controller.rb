@@ -89,9 +89,10 @@ class PhotosController < ApplicationController
   def inline_thumbnail
     @photo = Photo.find(params[:id])
 
-    img = @photo.thumbnail_medium ? @photo.thumbnail_medium : @photo.create_medium_thumbnail
-    send_data(img, :type => 'image/jpeg', :disposition => 'inline')
+    @photo.make_additional_data
     @photo.save if @photo.changed?
+
+    send_data(@photo.thumbnail_medium, :type => 'image/jpeg', :disposition => 'inline')
   end
 
   def inline_image
