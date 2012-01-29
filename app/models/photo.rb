@@ -33,6 +33,7 @@ class Photo < ActiveRecord::Base
         thumbnail = make_thumbnail(img, 80.0)
         self.thumbnail_small = thumbnail.to_blob
       end
+      save!
     end
   end
 

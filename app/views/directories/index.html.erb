@@ -1,7 +1,17 @@
 <h1>Listing directories</h1>
 
+<% if @isScanning %>
+  <script type="text/javascript" language="javascript">
+    setTimeout("location.reload()",10000);
+  </script>
+<% end %>
+
 <p>
-  <%= link_to 'Scan Directory', [ :scan, :directories ], :method => :post %>
+  <% if @isScanning %>
+    Now is scanning directory...
+  <% else %>
+    <%= link_to 'Scan Directory', [ :scan, :directories ], :method => :post %>
+  <% end %>
 </p>
 
 <table>
@@ -16,8 +26,13 @@
   <tr>
     <td><%= directory.path %></td>
     <td><%= directory.modified_at.getlocal %></td>
-    <td><%= link_to 'Show', [ directory, :photos ] %></td>
-    <td><%= link_to 'Destroy', directory, confirm: 'Are you sure?', method: :delete %></td>
+    <% if directory.is_ready_for_detail %>
+      <td><%= link_to 'Show', [ directory, :photos ] %></td>
+      <td><%= link_to 'Destroy', directory, confirm: 'Are you sure?', method: :delete %></td>
+    <% else %>
+      <td>loading...</td>
+      <td></td>
+    <% end %>
   </tr>
 <% end %>
 </table>

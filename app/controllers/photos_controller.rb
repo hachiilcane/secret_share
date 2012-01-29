@@ -5,10 +5,10 @@ class PhotosController < ApplicationController
     if params[:directory_id]
       @directory = Directory.find(params[:directory_id])
       @list_name = @directory.path
-      @photos = @directory.photos.all
+      @photos = @directory.photos.order("date_time_original").all
     else
       @list_name = ""
-      @photos = Photo.all
+      @photos = Photo.order("date_time_original").all
     end
 
     respond_to do |format|

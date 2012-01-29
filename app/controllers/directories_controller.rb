@@ -2,7 +2,11 @@ class DirectoriesController < ApplicationController
   # GET /directories
   # GET /directories.json
   def index
-    @directories = Directory.all
+    @directories = Directory.order("path").all
+    @isScanning = false
+    if @directories.size > 0
+      @isScanning = @directories.select { |d| !d.is_ready_for_detail }.size > 0
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -54,11 +58,12 @@ class DirectoriesController < ApplicationController
 
       # has not created target model yet
       if !directory
-        directory = Directory.new(:path => path, :modified_at => modified_time)
+        directory = Directory.new(:path => path, :modified_at => modified_time, :is_ready_for_detail => false)
         if !directory.save
           #TODO error code
         end
         create_photos_in_sub_directory(root_dir + path, directory.id)
+        directory.delay.gotReadyForDetail
       end
 
       # update
@@ -66,8 +71,10 @@ class DirectoriesController < ApplicationController
         # destroy all once!
         target_dir_photos = Photo.where(:directory_id => directory.id)
         target_dir_photos.destroy_all
+        directory.update_attributes(:is_ready_for_detail => false)
 
         create_photos_in_sub_directory(root_dir + path, directory.id)
+        directory.delay.gotReadyForDetail
       end
     end
 
@@ -129,6 +136,7 @@ class DirectoriesController < ApplicationController
       if !photo.save
         #TODO error code
       end
+      photo.delay.make_additional_data
     end
   end
 end
