@@ -8,6 +8,7 @@ gem 'rails', '3.1.1'
 gem 'pg'
 
 gem 'rmagick'
+gem 'delayed_job_active_record'
 
 gem "rspec-rails", ">=2.6.0", :group => [:development, :test]
 
