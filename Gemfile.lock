@@ -156,7 +156,10 @@ PLATFORMS
 DEPENDENCIES
   capybara
   coffee-rails (~> 3.1.1)
+<<<<<<< HEAD
   daemons
+=======
+>>>>>>> 1eac1e0feb112e93927555593543bc59b38928b6
   delayed_job_active_record
   jquery-rails
   launchy
