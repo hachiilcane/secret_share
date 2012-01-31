@@ -19,7 +19,6 @@
     <th>Path</th>
     <th>Modified at</th>
     <th></th>
-    <th></th>
   </tr>
 
 <% @directories.each do |directory| %>
@@ -28,15 +27,10 @@
     <td><%= directory.modified_at.getlocal %></td>
     <% if directory.is_ready_for_detail %>
       <td><%= link_to 'Show', [ directory, :photos ] %></td>
-      <td><%= link_to 'Destroy', directory, confirm: 'Are you sure?', method: :delete %></td>
     <% else %>
       <td>loading...</td>
-      <td></td>
     <% end %>
   </tr>
 <% end %>
 </table>
 
-<br />
-
-<%= link_to 'New Directory', new_directory_path %>

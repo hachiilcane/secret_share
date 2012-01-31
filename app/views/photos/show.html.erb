@@ -12,8 +12,10 @@
 
 <p>
   <%= link_to "original size", :action => 'original_image', :id => @photo.id %>
+</p>
+
+<p>
   <%= image_tag url_for(:action => 'inline_image', :id => @photo.id) %>
 </p>
 
-<%= link_to 'Edit', edit_photo_path(@photo) %> |
 <%= link_to 'Back', photos_path %>
