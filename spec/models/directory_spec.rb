@@ -1,5 +1,5 @@
 require 'spec_helper'
 
 describe Directory do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { Directory.new.should be_a_new(Directory) }
 end

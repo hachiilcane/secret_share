@@ -4,15 +4,16 @@ describe "photos/show.html.erb" do
   before(:each) do
     @photo = assign(:photo, stub_model(Photo,
       :full_name => "File Name",
-      :directory_id => 1
+      :directory_id => 1,
+      :directory => stub_model(Directory,
+                               :path => 'photodir',
+                               :modified_at => Time.now,
+                               :is_ready_for_detail => false)                                       
     ))
   end
 
   it "renders attributes in <p>" do
     render
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/File Name/)
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/1/)
   end
 end

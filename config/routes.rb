@@ -2,6 +2,7 @@ SecretShare::Application.routes.draw do
   root :to => 'directories#index'
   resources :photos do
     member do
+      get 'inline_thumbnail'
       get 'inline_image'
       get 'original_image'
     end

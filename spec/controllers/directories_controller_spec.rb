@@ -24,10 +24,21 @@ describe DirectoriesController do
   # Directory. As you add validations to Directory, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    { :path => 'directory_name' }
+  end
+
+  before do
+    # pass Basic authenticate
+    request.env['HTTP_AUTHORIZATION'] =
+      'Basic ' + Base64::encode64("owner:xxxx")
   end
 
   describe "GET index" do
+    it "returns 200 response" do
+      get :index
+      response.should be_success
+    end
+
     it "assigns all directories as @directories" do
       directory = Directory.create! valid_attributes
       get :index

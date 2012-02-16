@@ -27,6 +27,12 @@ describe PhotosController do
     {}
   end
 
+  before do
+    # pass Basic authenticate
+    request.env['HTTP_AUTHORIZATION'] =
+      'Basic ' + Base64::encode64("owner:xxxx")
+  end
+
   describe "GET index" do
     it "assigns all photos as @photos" do
       photo = Photo.create! valid_attributes
