@@ -38,6 +38,11 @@ gem 'jquery-rails'
 group :development, :test do
   gem "capybara"
   gem "launchy"
+  gem "spork"
+  gem "rb-fsevent", :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem "guard-rspec"
+  gem "guard-spork"
+  gem "growl"
 end
 
 group :test do
