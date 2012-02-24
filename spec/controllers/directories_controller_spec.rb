@@ -35,14 +35,35 @@ describe DirectoriesController do
 
   describe "GET index" do
     it "returns 200 response" do
+      Factory(:directory_1)
       get :index
       response.should be_success
     end
 
     it "assigns all directories as @directories" do
-      directory = Directory.create! valid_attributes
+      Factory(:directory_1)
+      Factory(:directory_2)
       get :index
-      assigns(:directories).should eq([directory])
+      assigns(:directories).should == Directory.all
+    end
+
+    it "assigns true as @isScanning if there are some directories of which is_ready_for_detail is false" do
+      Factory(:directory_ready)
+      Factory(:directory_not_ready)
+      get :index
+      assigns(:isScanning).should be_true
+    end
+
+    it "assigns false as @isScanning if all directories' is_ready_for_detail is true" do
+      Factory(:directory_ready)
+      Factory(:directory_ready)
+      get :index
+      assigns(:isScanning).should be_false
+    end
+
+    it "uses index template" do
+      get :index
+      response.should render_template("index")
     end
   end
 
