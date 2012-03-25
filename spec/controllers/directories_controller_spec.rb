@@ -90,6 +90,55 @@ describe DirectoriesController do
     end
   end
 
+  describe "POST scan" do
+    before do
+      AppConfig[:root_directory] = "/test"
+
+      @path = '2011_03_20'
+      @photo_full_name = AppConfig[:root_directory] + '/' + @path + '/img001.jpg'
+      @mtime = Time.parse("2011-03-22 11:56:02")
+      Dir.stub(:glob).and_return([@photo_full_name])
+      File.stub(:mtime).and_return(@mtime)
+      Photo.any_instance.stub(:make_additional_data)
+    end
+
+    it "creates a new Directory" do
+      expect {
+        post :scan
+      }.to change(Directory, :count).by(1)
+    end
+
+    it "does not create a new Directory if it already exists" do
+      Factory(:directory_not_ready, :path => @path)
+
+      expect {
+        post :scan
+      }.to change(Directory, :count).by(0)
+    end
+
+    it "updates photos if the directory already exists and modified time is changed" do
+      directory = Factory(:directory_not_ready, :path => @path, :modified_at => @mtime + 100)
+      Factory(:photo_1, :directory => directory)
+
+      post :scan
+      Photo.first.full_name.should == @photo_full_name
+    end
+
+    it "does not update photos if the directory already exists and modified time is not changed" do
+      directory = Factory(:directory_not_ready, :path => @path, :modified_at => @mtime)
+      photo = Factory(:photo_1, :directory => directory)
+
+      post :scan
+      Photo.first.full_name.should == photo.full_name
+    end
+
+    it "redirects to the directory" do
+      directory = Directory.create! valid_attributes
+      post :scan
+      response.should redirect_to(:directories)
+    end
+  end
+
   describe "POST create" do
     describe "with valid params" do
       it "creates a new Directory" do
