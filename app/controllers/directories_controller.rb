@@ -63,7 +63,7 @@ class DirectoriesController < ApplicationController
           #TODO error code
         end
         create_photos_in_sub_directory(root_dir + path, directory.id)
-        directory.delay.gotReadyForDetail # pushed this job after jobs which create photos
+        directory.delay.got_ready_for_detail # pushed this job after jobs which create photos
       end
 
       # update
@@ -74,7 +74,7 @@ class DirectoriesController < ApplicationController
         directory.update_attributes(:is_ready_for_detail => false)
 
         create_photos_in_sub_directory(root_dir + path, directory.id)
-        directory.delay.gotReadyForDetail # pushed this job after jobs which create photos
+        directory.delay.got_ready_for_detail # pushed this job after jobs which create photos
       end
     end
 

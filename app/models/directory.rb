@@ -1,7 +1,7 @@
 class Directory < ActiveRecord::Base
   has_many :photos
 
-  def gotReadyForDetail
+  def got_ready_for_detail
     self.is_ready_for_detail = true
     save!
   end
