@@ -1,8 +1,11 @@
+<%- model_class = @photo.class -%>
+<h1><%=t '.title', :default => model_class.model_name.human %></h1>
+
 <p id="notice"><%= notice %></p>
 
 <p>
   <b>File name:</b>
-  <%= File.basename(@photo.full_name) %>
+  <%= File.basename(@photo.full_name) %> <%= link_to "original size",{ :action => 'original_image', :id => @photo.id }, :class => 'btn' %>
 </p>
 
 <p>
@@ -11,11 +14,10 @@
 </p>
 
 <p>
-  <%= link_to "original size", :action => 'original_image', :id => @photo.id %>
-</p>
-
-<p>
   <%= image_tag url_for(:action => 'inline_image', :id => @photo.id) %>
 </p>
 
-<%= link_to 'Back', photos_path %>
+
+<div class="form-actions">
+  <%= link_to 'Back', :back, :class => 'btn'  %>
+</div>

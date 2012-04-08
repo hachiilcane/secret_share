@@ -1,19 +1,22 @@
-<h1>Listing photos: <%= @list_name %></h1>
-
-<table>
-  <tr>
-    <th>File name</th>
-    <th>Thumbnail</th>
-    <th>Date</th>
-    <th></th>
-  </tr>
-
-<% @photos.each do |photo| %>
-  <tr>
-    <td><%= File.basename(photo.full_name) %></td>
-    <td><%= link_to image_tag(url_for(:action => 'inline_thumbnail', :id => photo.id)), photo %></td>
-    <td><%= photo.date_time_original.getlocal if photo.date_time_original %></td>
-    <td><%= link_to 'Show', photo %></td>
-  </tr>
-<% end %>
+<%- model_class = Photo.new.class -%>
+<h1><%=t '.title', :default => model_class.model_name.human.pluralize %>: <%= @list_name %></h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>File name</th>
+      <th>Thumbmail</th>
+      <th>Date</th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @photos.each do |photo| %>
+      <tr>
+	<td><%= File.basename(photo.full_name) %></td>
+	<td><%= link_to image_tag(url_for(:action => 'inline_thumbnail', :id => photo.id)), photo %></td>
+	<td><%= photo.date_time_original.getlocal if photo.date_time_original %></td>
+	<td><%= link_to 'Show', photo, :class => 'btn btn-mini' %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
