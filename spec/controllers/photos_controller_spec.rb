@@ -35,9 +35,29 @@ describe PhotosController do
 
   describe "GET index" do
     it "assigns all photos as @photos" do
-      photo = Photo.create! valid_attributes
+      photo = Factory(:photo_1)
       get :index
       assigns(:photos).should eq([photo])
+    end
+
+    describe "with directory_id" do
+      it "should assigns all photos of directory as @photos" do
+        directory = Factory(:directory_has_photo)
+        Factory(:photo_2)
+        get :index, :directory_id => directory.id
+        assigns(:photos).should eq([directory.photos.first])
+      end
+      it "should assigns directory's path as @list_name" do
+        directory = Factory(:directory_has_photo)
+        get :index, :directory_id => directory.id
+        assigns(:list_name).should == directory.path
+      end
+      it "should order @photos by date_time_original" do
+        directory = Factory(:directory_has_2photos)
+        get :index, :directory_id => directory.id
+        photos = assigns(:photos)
+        photos[0].date_time_original.should < photos[1].date_time_original
+      end
     end
   end
 
