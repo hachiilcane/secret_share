@@ -10,6 +10,7 @@ gem 'pg'
 gem 'rmagick'
 gem 'delayed_job_active_record'
 gem 'daemons'
+gem 'twitter-bootstrap-rails'
 
 gem "rspec-rails", ">=2.6.0", :group => [:development, :test]
 
