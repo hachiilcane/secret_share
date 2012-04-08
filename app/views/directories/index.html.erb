@@ -1,4 +1,5 @@
-<h1>Listing directories</h1>
+<%- model_class = Directory.new.class -%>
+<h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 
 <% if @isScanning %>
   <script type="text/javascript" language="javascript">
@@ -10,27 +11,32 @@
   <% if @isScanning %>
     Now is scanning directory...
   <% else %>
-    <%= link_to 'Scan Directory', [ :scan, :directories ], :method => :post %>
+    <%= link_to 'Scan', [ :scan, :directories ], :method => :post, :class => 'btn btn-primary' %>
   <% end %>
 </p>
 
-<table>
-  <tr>
-    <th>Path</th>
-    <th>Modified at</th>
-    <th></th>
-  </tr>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:path) %></th>
+      <th><%= model_class.human_attribute_name(:modified_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @directories.each do |directory| %>
+      <tr>
+        <td><%= directory.path %></td>
+	<td><%= directory.modified_at.getlocal %></td>
+        <td>
+	  <% if directory.is_ready_for_detail %>
+            <%= link_to 'Show', [ directory, :photos ], :class => 'btn btn-mini' %>
+	  <% else %>
+	    loading...
+	  <% end %>
+        </td>
 
-<% @directories.each do |directory| %>
-  <tr>
-    <td><%= directory.path %></td>
-    <td><%= directory.modified_at.getlocal %></td>
-    <% if directory.is_ready_for_detail %>
-      <td><%= link_to 'Show', [ directory, :photos ] %></td>
-    <% else %>
-      <td>loading...</td>
+      </tr>
     <% end %>
-  </tr>
-<% end %>
+  </tbody>
 </table>
-
