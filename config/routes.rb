@@ -1,4 +1,6 @@
 SecretShare::Application.routes.draw do
+  resources :baskets
+
   root :to => 'directories#index'
   resources :photos do
     member do
