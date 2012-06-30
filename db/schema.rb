@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120505024701) do
+ActiveRecord::Schema.define(:version => 20120505032334) do
 
   create_table "baskets", :force => true do |t|
     t.string   "name"
@@ -52,6 +52,13 @@ ActiveRecord::Schema.define(:version => 20120505024701) do
     t.datetime "date_time_original"
     t.binary   "thumbnail_medium"
     t.binary   "thumbnail_small"
+  end
+
+  create_table "pickings", :force => true do |t|
+    t.integer  "photo_id",   :null => false
+    t.integer  "basket_id",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
