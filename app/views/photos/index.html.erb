@@ -15,7 +15,19 @@
 	<td><%= File.basename(photo.full_name) %></td>
 	<td><%= link_to image_tag(url_for(:action => 'inline_thumbnail', :id => photo.id)), photo %></td>
 	<td><%= photo.date_time_original.getlocal if photo.date_time_original %></td>
-	<td><%= link_to 'Show', photo, :class => 'btn btn-mini' %></td>
+	<td><%= link_to 'Show', photo, :class => 'btn btn-mini' %>
+	  <div class="btn-group">
+	    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+	      Pick
+	      <span class="caret"></span>
+	    </a>
+	    <ul class="dropdown-menu">
+	      <% @baskets.each do |basket| %>
+		<li><%= basket.name %></li>
+	      <% end %>
+	    </ul>
+	  </div>
+	</td>
       </tr>
     <% end %>
   </tbody>

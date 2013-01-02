@@ -11,6 +11,8 @@ class PhotosController < ApplicationController
       @photos = Photo.order("date_time_original").all
     end
 
+    @baskets = Basket.all
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @photos }
