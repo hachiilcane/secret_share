@@ -18,7 +18,7 @@ development:
   database: secret_share_development
   pool: 5
   username: secret_share
-  password: 
+  password: ENV['SECRET_SHARE_DB_PW']
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -44,7 +44,7 @@ test:
   database: secret_share_test
   pool: 5
   username: secret_share
-  password: 
+  password: ENV['SECRET_SHARE_DB_PW']
 
 production:
   adapter: postgresql
@@ -52,4 +52,4 @@ production:
   database: secret_share_production
   pool: 5
   username: secret_share
-  password: 
+  password: ENV['SECRET_SHARE_DB_PW']
