@@ -1,0 +1,2 @@
+module PickingsHelper
+end

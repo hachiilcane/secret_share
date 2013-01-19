@@ -1,0 +1,2 @@
+class PickingsController < ApplicationController
+end
