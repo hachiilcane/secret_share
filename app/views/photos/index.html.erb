@@ -23,7 +23,9 @@
 	    </a>
 	    <ul class="dropdown-menu">
 	      <% @baskets.each do |basket| %>
-		<li><%= basket.name %></li>
+		<li><%= link_to basket.name,
+			{ :controller => "pickings", :action => "create", :photo_id => photo.id, :basket_id => basket.id },
+			{ :confirm => 'Are you going to put this photo in the basket?', :method => "post", :remote => true } %></li>
 	      <% end %>
 	    </ul>
 	  </div>

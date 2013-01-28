@@ -1,5 +1,4 @@
 SecretShare::Application.routes.draw do
-  resources :baskets
 
   root :to => 'directories#index'
   resources :photos do
@@ -21,6 +20,9 @@ SecretShare::Application.routes.draw do
     end
   end
 
+  resources :baskets
+
+  resource :pickings, :only => %w[create]
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
