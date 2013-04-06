@@ -5,7 +5,7 @@ class PickingsController < ApplicationController
     respond_to do |format|
       if @picking.save
 #        format.html { redirect_to @picking, notice: 'Picking was successfully created.' }
-        format.json { render json: @picking, status: :created, location: @picking }
+        format.json { render json: @picking, status: :created }
       else
 #        format.html { render action: "new" }
         format.json { render json: @picking.errors, status: :unprocessable_entity }
