@@ -1,36 +1,34 @@
 <%- model_class = Photo.new.class -%>
 <h1><%=t '.title', :default => model_class.model_name.human.pluralize %>: <%= @list_name %></h1>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>File name</th>
-      <th>Thumbmail</th>
-      <th>Date</th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @photos.each do |photo| %>
-      <tr>
-	<td><%= File.basename(photo.full_name) %></td>
-	<td><%= link_to image_tag(url_for(:action => 'inline_thumbnail', :id => photo.id)), photo %></td>
-	<td><%= photo.date_time_original.getlocal if photo.date_time_original %></td>
-	<td><%= link_to 'Show', photo, :class => 'btn btn-mini' %>
-	  <div class="btn-group">
-	    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-	      Pick
-	      <span class="caret"></span>
-	    </a>
-	    <ul class="dropdown-menu">
-	      <% @baskets.each do |basket| %>
-		<li><%= link_to basket.name,
-			{ :controller => "pickings", :action => "create", :photo_id => photo.id, :basket_id => basket.id },
-			{ :confirm => 'Are you going to put this photo in the basket?', :method => "post", :remote => true } %></li>
-	      <% end %>
-	    </ul>
-	  </div>
-	</td>
-      </tr>
+<div class="row-fluid">
+  <div class="span3" style="height:500px;overflow:scroll;">
+    <h2>Baskets</h2>
+    <ul>
+    <% @baskets.each do |basket| %>
+      <li class="basket-in-list" id="basket<%= basket.id %>"><%= basket.name %></li>
     <% end %>
-  </tbody>
-</table>
+    </ul>
+  </div>
+  <div class="span9">
+    <table class="table table-striped">
+      <thead>
+	<tr>
+	  <th>File name</th>
+	  <th>Thumbmail</th>
+	  <th>Date</th>
+	  <th><%=t '.actions', :default => t("helpers.actions") %></th>
+	</tr>
+      </thead>
+      <tbody>
+	<% @photos.each do |photo| %>
+	  <tr>
+	    <td><%= File.basename(photo.full_name) %></td>
+	    <td><span class="inline_thumbnail" id="photo<%= photo.id.to_s %>"><%= link_to image_tag(url_for(:action => 'inline_thumbnail', :id => photo.id)), photo %></span></td>
+	    <td><%= photo.date_time_original.getlocal if photo.date_time_original %></td>
+	    <td><%= link_to 'Show', photo, :class => 'btn btn-mini' %></td>
+	  </tr>
+    <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
