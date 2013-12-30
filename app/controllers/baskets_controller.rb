@@ -1,4 +1,28 @@
 class BasketsController < ApplicationController
+  # GET /baskets/1/download
+  def download
+    @basket = Basket.find(params[:id])
+
+    zip_tempfile = Tempfile.new([@basket.name, '.zip'])
+
+    begin
+      logger.debug("Zipfile name: " + zip_tempfile.path)
+      input_filenames = @basket.photos.map { |p| p.full_name }
+      input_filenames.uniq!
+      Zip::OutputStream.open(zip_tempfile) {|zos|}
+      Zip::File.open(zip_tempfile.path, Zip::File::CREATE) do |zipfile|
+        input_filenames.each do |filename|
+          zipfile.add(File.basename(filename), filename)
+        end
+      end
+      zip_data = File.read(zip_tempfile.path)
+      send_data(zip_data, :type => 'application/zip', :filename => File.basename(zip_tempfile.path))
+    ensure
+      zip_tempfile.close
+      zip_tempfile.unlink
+    end
+  end
+
   # GET /baskets
   # GET /baskets.json
   def index

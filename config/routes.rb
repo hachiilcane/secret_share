@@ -21,6 +21,7 @@ SecretShare::Application.routes.draw do
   end
 
   resources :baskets do
+    post 'download' , :on => :member
     resources :photos do
       member do
         get 'inline_thumbnail'

@@ -3,7 +3,9 @@
   <div class="span2" style="height:500px;overflow:scroll;">
     <% if @basket %>
       <ul>
-	<li>Download</li>
+        <li><%= link_to "Download",
+                  {:controller => "baskets", :action => "download", :id => @basket},
+                  {:confirm => "Are you sure you would like to download all photos in this basket?", :method => "post"} %></li>
 	<li>Drop this basket</li>
       </ul>
     <% else %>

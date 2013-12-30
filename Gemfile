@@ -11,7 +11,7 @@ gem 'rmagick'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'twitter-bootstrap-rails'
-
+gem 'rubyzip', '>= 1.0.0', require: 'zip'
 gem "rspec-rails", ">=2.6.0", :group => [:development, :test]
 
 # Gems used only for assets and not required
