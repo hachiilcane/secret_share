@@ -20,7 +20,15 @@ SecretShare::Application.routes.draw do
     end
   end
 
-  resources :baskets
+  resources :baskets do
+    resources :photos do
+      member do
+        get 'inline_thumbnail'
+        get 'inline_image'
+        get 'original_image'
+      end
+    end
+  end
 
   resource :pickings, :only => %w[create]
   # The priority is based upon order of creation:

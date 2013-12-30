@@ -1,34 +1,22 @@
 <%- model_class = Photo.new.class -%>
-<h1><%=t '.title', :default => model_class.model_name.human.pluralize %>: <%= @list_name %></h1>
 <div class="row-fluid">
-  <div class="span3" style="height:500px;overflow:scroll;">
-    <h2>Baskets</h2>
-    <ul>
-    <% @baskets.each do |basket| %>
-      <li class="basket-in-list" id="basket<%= basket.id %>"><%= basket.name %></li>
+  <div class="span2" style="height:500px;overflow:scroll;">
+    <% if @basket %>
+      <ul>
+	<li>Download</li>
+	<li>Drop this basket</li>
+      </ul>
+    <% else %>
+      <h2>Baskets</h2>
+      <ul>
+	<% @baskets.each do |basket| %>
+	  <li class="basket-in-list" id="basket<%= basket.id %>"><%= link_to basket.name, [ basket, :photos ] %></li>
+	<% end %>
+      </ul>
     <% end %>
-    </ul>
   </div>
-  <div class="span9">
-    <table class="table table-striped">
-      <thead>
-	<tr>
-	  <th>File name</th>
-	  <th>Thumbmail</th>
-	  <th>Date</th>
-	  <th><%=t '.actions', :default => t("helpers.actions") %></th>
-	</tr>
-      </thead>
-      <tbody>
-	<% @photos.each do |photo| %>
-	  <tr>
-	    <td><%= File.basename(photo.full_name) %></td>
-	    <td><span class="inline_thumbnail" id="photo<%= photo.id.to_s %>"><%= link_to image_tag(url_for(:action => 'inline_thumbnail', :id => photo.id)), photo %></span></td>
-	    <td><%= photo.date_time_original.getlocal if photo.date_time_original %></td>
-	    <td><%= link_to 'Show', photo, :class => 'btn btn-mini' %></td>
-	  </tr>
-    <% end %>
-      </tbody>
-    </table>
+  <div class="span10">
+    <%= render 'list' %>
+
   </div>
 </div>
