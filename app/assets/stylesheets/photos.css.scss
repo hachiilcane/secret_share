@@ -1,3 +1,11 @@
 // Place all the styles related to the Photos controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+li.basket-in-list {
+  padding: 5px;
+}
+
+li.basket-in-list-hover {
+  border: solid 1px #cccccc;
+  padding: 5px;
+}

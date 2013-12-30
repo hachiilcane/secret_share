@@ -4,12 +4,18 @@ class PhotosController < ApplicationController
   def index
     if params[:directory_id]
       @directory = Directory.find(params[:directory_id])
-      @list_name = @directory.path
+      @list_name = "Directory: " + @directory.path
       @photos = @directory.photos.order("date_time_original").all
+    elsif params[:basket_id]
+      @basket = Basket.find(params[:basket_id])
+      @list_name = "Basket: " + @basket.name
+      @photos = @basket.photos.order("date_time_original").all
     else
       @list_name = ""
       @photos = Photo.order("date_time_original").all
     end
+
+    @baskets = Basket.all
 
     respond_to do |format|
       format.html # index.html.erb

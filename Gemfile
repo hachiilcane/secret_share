@@ -11,7 +11,7 @@ gem 'rmagick'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'twitter-bootstrap-rails'
-
+gem 'rubyzip', '>= 1.0.0', require: 'zip'
 gem "rspec-rails", ">=2.6.0", :group => [:development, :test]
 
 # Gems used only for assets and not required
@@ -20,6 +20,7 @@ group :assets do
   gem 'sass-rails',   '~> 3.1.4'
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
+  gem 'jquery-ui-rails'
 end
 
 gem 'jquery-rails'
