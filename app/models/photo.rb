@@ -2,6 +2,7 @@ class Photo < ActiveRecord::Base
   belongs_to :directory
   has_many :pickings
   has_many :baskets, :through => :pickings
+  attr_accessible :full_name, :directory_id
 
   def read_original_time
     self.date_time_original = get_original_time_by_exif(self.full_name)

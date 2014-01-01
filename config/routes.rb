@@ -1,5 +1,4 @@
 SecretShare::Application.routes.draw do
-
   root :to => 'directories#index'
   resources :photos do
     member do
@@ -32,6 +31,7 @@ SecretShare::Application.routes.draw do
   end
 
   resource :pickings, :only => %w[create]
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -87,5 +87,5 @@ SecretShare::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id(.:format)))'
+  # match ':controller(/:action(/:id))(.:format)'
 end
