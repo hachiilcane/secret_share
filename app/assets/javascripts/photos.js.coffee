@@ -2,15 +2,16 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 jQuery ->
-  $(".inline_thumbnail").draggable({
+  $(".inline-thumbnail").draggable({
     revert: "invalid"
     helper: "clone"
     opacity: 0.5
     cursorAt: {left: 0, top: 0}
   })
+  $(".thumbnail-item").tooltip()
   $(".basket-in-list").droppable({
     hoverClass: "basket-in-list-hover"
-    accept: ".inline_thumbnail"
+    accept: ".inline-thumbnail"
     drop: (event, ui) ->
       thumbnailElement = ui.draggable.get(0)
       photo_id = parseInt(thumbnailElement.id.match(/\d+/)[0])
